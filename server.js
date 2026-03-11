@@ -863,6 +863,9 @@ app.delete('/api/product-management', async (req, res) => {
 });
 
 // Serve frontend
+const path = require("path");
+
+app.use(express.static(__dirname));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
