@@ -865,13 +865,14 @@ app.delete('/api/product-management', async (req, res) => {
 // Serve frontend
 const path = require("path");
 
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
+
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
+  res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // Start server
@@ -883,4 +884,5 @@ initializeDatabase().then(() => {
     console.error('Failed to initialize database:', err);
     process.exit(1);
 });
+
 
