@@ -51,7 +51,7 @@ let mongoDb;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
-app.use('/public/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use('/logo', express.static(path.join(__dirname, 'LOGO')));
 app.use('/qr', express.static(path.join(__dirname, 'QR')));
 
