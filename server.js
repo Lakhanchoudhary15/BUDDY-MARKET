@@ -50,7 +50,8 @@ let mongoDb;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
+app.use('/public/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use('/logo', express.static(path.join(__dirname, 'LOGO')));
 app.use('/qr', express.static(path.join(__dirname, 'QR')));
 
@@ -863,11 +864,11 @@ app.delete('/api/product-management', async (req, res) => {
 
 // Serve frontend
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+    res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // Start server

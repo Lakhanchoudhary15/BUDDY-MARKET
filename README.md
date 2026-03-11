@@ -96,18 +96,20 @@ The server will run on http://localhost:80
 
 ```
 buddy-market/
+├── index.html         # Main frontend
+├── admin.html         # Admin panel
+├── logo.png          # Website logo
 ├── public/
-│   ├── index.html      # Main frontend
-│   ├── admin.html      # Admin panel
-│   ├── logo.png       # Website logo
-│   └── uploads/       # Uploaded product images
+│   └── uploads/      # Uploaded product images
 ├── QR/
-│   └── QR.jpeg        # Payment QR code
-├── server.js          # Main server file
-├── package.json        # Dependencies
-├── .env.example       # Environment variables template
-├── .gitignore         # Git ignore file
-└── buddy_market.db    # SQLite database (local)
+│   └── QR.jpeg      # Payment QR code
+├── LOGO/
+│   └── LOGO.png     # Logo folder
+├── server.js         # Main server file
+├── package.json      # Dependencies
+├── .env.example      # Environment variables template
+├── .gitignore       # Git ignore file
+└── buddy_market.db  # SQLite database (local)
 ```
 
 ## API Endpoints
