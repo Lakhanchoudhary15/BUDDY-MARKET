@@ -772,6 +772,44 @@ app.get('/api/qr-code', (req, res) => {
     });
 });
 
+// Database Status Endpoint - Check if database is connected and working
+app.get('/api/db-status', async (req, res) => {
+    try {
+        const status = {
+            dbType: DB_TYPE,
+            connected: false,
+            productsCount: 0,
+            message: ''
+        };
+        
+        if (DB_TYPE === 'mongodb' && mongoDb) {
+            const count = await mongoDb.collection('products').countDocuments();
+            status.connected = true;
+            status.productsCount = count;
+            status.message = 'MongoDB connected successfully';
+        } else if (DB_TYPE === 'sqlite' && db) {
+            status.connected = true;
+            status.productsCount = await new Promise((resolve, reject) => {
+                db.get("SELECT COUNT(*) as count FROM products", (err, row) => {
+                    if (err) reject(err);
+                    else resolve(row ? row.count : 0);
+                });
+            });
+            status.message = 'SQLite connected successfully';
+        } else {
+            status.message = 'Database not initialized';
+        }
+        
+        res.json(status);
+    } catch (error) {
+        res.status(500).json({ 
+            error: true, 
+            message: error.message,
+            dbType: DB_TYPE
+        });
+    }
+});
+
 // Product Management API
 app.get('/api/product-management', async (req, res) => {
     try {
