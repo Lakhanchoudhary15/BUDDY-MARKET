@@ -42,7 +42,8 @@ const app = express();
 const PORT = process.env.PORT || 80;
 
 // Determine database type
-const DB_TYPE = process.env.DB_TYPE || 'sqlite';
+const DB_TYPE = process.env.DB_TYPE || (process.env.NODE_ENV === 'production' ? 'mongodb' : 'sqlite');
+console.log(`🚀 Using DB_TYPE: ${DB_TYPE}` + (DB_TYPE === 'mongodb' ? `, MONGODB_URI: ${process.env.MONGODB_URI ? '[SET]' : '[MISSING - Fallback to SQLite]'}` : ''));
 let db;
 let mongoClient;
 let mongoDb;
@@ -772,7 +773,18 @@ app.get('/api/qr-code', (req, res) => {
     });
 });
 
-// Database Status Endpoint - Check if database is connected and working
+// Environment Status - Debug deployment
+app.get('/api/env-status', (req, res) => {
+  res.json({
+    dbType: DB_TYPE,
+    mongodbUriSet: !!process.env.MONGODB_URI,
+    port: process.env.PORT || 80,
+    nodeEnv: process.env.NODE_ENV,
+    message: 'Env vars OK'
+  });
+});
+
+// Enhanced Database Status
 app.get('/api/db-status', async (req, res) => {
     try {
         const status = {

@@ -1,3 +1,19 @@
+/**
+ * ⚠️  DANGER ZONE - MANUAL RESET TOOL ⚠️
+ * 
+ * This script DELETES ALL ORDERS and CUSTOMERS from buddy_market.db.
+ * Products and stock remain unchanged.
+ * 
+ * ROOT CAUSE OF DATA LOSS: Running this wipes user changes!
+ * 
+ * ONLY run manually when you want to reset orders/customers for testing.
+ * Do NOT run automatically or after user changes.
+ * 
+ * To fix persistence: STOP running this script after frontend/backend changes.
+ * Data now persists via APIs!
+ * 
+ * Alternative: Use Admin Panel → Dashboard → "Reset Orders & Customers" (safer, stats only).
+ */
 const sqlite3 = require('sqlite3').verbose();
 
 // Connect to the database

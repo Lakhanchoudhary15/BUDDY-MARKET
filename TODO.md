@@ -1,41 +1,37 @@
-# TODO: Database Persistence Implementation
+# Buddy Market - Data Persistence Fix
+Current Working Directory: /Users/apple/Desktop/projects and hackathon/my projects /BUDDY MARKET
 
-## Task Summary
-Implement permanent MongoDB database storage for Buddy Market to persist product data across server restarts and deployments.
+## Status: ✅ In Progress
 
-## Steps Completed:
+### Step 1: Create TODO.md [COMPLETED]
 
-### Step 1: Analyze Current Codebase
-- [x] Reviewed server.js for existing database implementation
-- [x] Identified MongoDB and SQLite support already exists
-- [x] Confirmed frontend already fetches from API endpoints
-- [x] Identified issue: MongoDB may not be properly configured on Render
+### Step 2: Document warnings in reset-data.js [PENDING]
+- Add prominent warnings to prevent accidental runs.
 
-### Step 2: Create Environment Configuration
-- [x] Created `.env.example` - Template for environment variables
-- [x] Documented required variables: DB_TYPE, MONGODB_URI, PORT
+### Step 3: Add safe admin reset endpoint to server.js [PENDING]
+- `/api/admin/reset-data` (password protected).
+- Logs for debugging DB writes.
 
-### Step 3: Create MongoDB Setup Guide
-- [x] Created `MONGO_SETUP.md` with step-by-step MongoDB Atlas setup
-- [x] Documented cluster creation, user creation, network access
-- [x] Included connection string retrieval instructions
+### Step 4: Verify persistence [PENDING]
+```
+cd "/Users/apple/Desktop/projects and hackathon/my projects /BUDDY MARKET"
+rm -f buddy_market.db  # Clean slate
+npm start  # Or node server.js
+```
+- Open http://localhost (or port shown).
+- Frontend: Add product/add to cart/place order.
+- Refresh page → data persists?
+- Ctrl+C restart server → data persists?
+- Check `ls -la buddy_market.db`, `sqlite3 buddy_market.db "SELECT * FROM orders LIMIT 5;"`
 
-### Step 4: Create Deployment Guide
-- [x] Created `DEPLOY.md` with complete deployment instructions
-- [x] Documented local development setup
-- [x] Documented Render deployment with MongoDB
-- [x] Added troubleshooting section
+### Step 5: Test reset [PENDING]
+```
+node reset-data.js  # Should wipe orders/customers, keep products/stock
+```
 
-### Step 5: Add Database Status Endpoint
-- [x] Added `/api/db-status` endpoint to check database connection
-- [x] Returns: connection status, database type, products count
-- [x] Helps verify persistence is working correctly
+### Step 6: Complete [PENDING]
+- Mark TODO steps done.
+- attempt_completion.
 
-## COMPLETED: Database persistence implementation finished!
-
-## Next Steps (For User):
-1. Follow MONGO_SETUP.md to create MongoDB Atlas account
-2. Configure environment variables on Render
-3. Redeploy and verify products persist after restart
-4. Use /api/db-status endpoint to verify connection
+**Root Cause**: reset-data.js manual wipes. Frontend/Backend APIs already persistent!
 
